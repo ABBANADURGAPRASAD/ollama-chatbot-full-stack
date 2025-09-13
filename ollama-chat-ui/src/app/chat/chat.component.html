@@ -1,0 +1,39 @@
+<div class="chat-container">
+  <!-- Sidebar -->
+  <div
+    class="sidebar"
+    [class.closed]="!isSidebarOpen"
+    *ngIf="isSidebarOpen"
+  >
+    <button class="close-btn" (click)="closeSidebar()">Close Sidebar</button>
+    <h2>Ollama Chat</h2>
+    <button (click)="newChat()">+ New chat</button>
+    <button (click)="searchChat()">Search chats</button>
+    <button (click)="openLibrary()">Library</button>
+  </div>
+
+  <!-- Sidebar Toggle Button (shows when sidebar is closed) -->
+  <button class="toggle-btn" *ngIf="!isSidebarOpen" (click)="openSidebar()">Open Sidebar</button>
+
+  <!-- Chat Area -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <h1>Ollama Chat</h1>
+    </div>
+    <div class="messages">
+      <div *ngFor="let msg of messages" [ngClass]="msg.sender === 'ai' ? 'ai-message' : 'user-message'">
+        {{ msg.text }}
+      </div>
+    </div>
+    <form class="chat-input" (submit)="sendMessage()" autocomplete="off">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        name="message"
+        placeholder="Type your message..."
+        required
+      />
+      <button type="submit" class="send-btn">Send</button>
+    </form>
+  </div>
+</div>
